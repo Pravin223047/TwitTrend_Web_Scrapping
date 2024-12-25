@@ -12,6 +12,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import json
 import socket  # For IP Address
+import platform  # To detect OS
 
 # Load environment variables
 load_dotenv()
@@ -29,8 +30,16 @@ options.add_argument("--headless")  # Run browser in headless mode for servers
 options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 
-# Ensure correct chromedriver binary for Linux
-service = Service("/opt/render/project/src/chromedriver")  # Linux binary
+# Detect platform and set the chromedriver path accordingly
+if platform.system() == "Windows":
+    chromedriver_path = "C:/Users/Pravin Kshirsagar/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Windows chromedriver path
+elif platform.system() == "Linux":
+    chromedriver_path = "/opt/render/project/src/chromedriver"  # Linux chromedriver path
+else:
+    raise Exception("Unsupported OS")
+
+# Initialize chromedriver service
+service = Service(chromedriver_path)
 
 try:
     driver = webdriver.Chrome(service=service, options=options)
