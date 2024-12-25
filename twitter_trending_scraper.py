@@ -30,7 +30,7 @@ def init_driver():
     options.add_argument("--start-maximized")
     
     try:
-        service = Service("/usr/bin/chromedriver")  # Update path if needed
+        service = Service("chromedriver.exe")  # Update path if needed
         driver = webdriver.Chrome(service=service, options=options)
         return driver
     except WebDriverException as e:
