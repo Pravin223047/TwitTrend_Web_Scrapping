@@ -11,36 +11,29 @@ from selenium.common.exceptions import TimeoutException, WebDriverException
 from datetime import datetime
 from dotenv import load_dotenv
 import json
-import socket  # For IP Address
-import platform  # To detect OS
+import socket
+import platform
 
-# Load environment variables
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 
-# MongoDB setup
 client = pymongo.MongoClient(MONGO_URI)
 db = client["twitter_scraper"]
 collection = db["trending_topics"]
 
-# Selenium setup
 options = Options()
 options.add_argument("--start-maximized")
-options.add_argument("--headless")  # Run browser in headless mode for servers
+options.add_argument("--headless")
 options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 
-# Set the chromedriver path based on Render (Linux environment)
-  # Adjust this if necessary
-
 if platform.system() == "Windows":
-    # Specify the path to chromedriver.exe on Windows
-    chromedriver_path = "C:/Users/Pravin Kshirsagar/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Update this to your chromedriver path
-else:
-    # For Linux, use the default path (chromedriver installed on the system)
+    chromedriver_path = os.getenv("CHROMEDRIVER_PATH", "C:/Users/Pravin Kshirsagar/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe")
+elif platform.system() == "Linux":
     chromedriver_path = "/usr/bin/chromedriver"
+else:
+    chromedriver_path = os.getenv("CHROMEDRIVER_PATH")
 
-# Initialize chromedriver service
 service = Service(chromedriver_path)
 
 try:
@@ -97,11 +90,9 @@ try:
         unique_id = str(uuid.uuid4())
         end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Fetch the server's IP address
         hostname = socket.gethostname()
         ip_address = socket.gethostbyname(hostname)
 
-        # Create record to insert into MongoDB
         record = {
             "_id": unique_id,
             "trend1": trending_topics[0]["name"] if len(trending_topics) > 0 else None,
@@ -113,14 +104,12 @@ try:
             "ip_address": ip_address,
         }
 
-        # Insert data into MongoDB
         try:
             collection.insert_one(record)
             print("Data inserted into MongoDB:", record)
         except Exception as e:
             print("Error saving to MongoDB:", e)
 
-        # Return the data as JSON so Node.js can process it
         return record
 
     # Script Execution
@@ -129,8 +118,7 @@ try:
     trending_topics = fetch_trending()
     record = save_trending_to_mongo(trending_topics)
 
-    # Print the JSON data as the final output
-    print(json.dumps(record))  # This will be used by Node.js
+    print(json.dumps(record))
 
 except WebDriverException as e:
     print("WebDriver Error:", e)
