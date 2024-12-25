@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development nodemon backend/index.js",
     "start": "cross-env NODE_ENV=production node backend/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-    "postinstall": "pip install pymongo selenium python-dotenv python-dateutil && node -e \"const os = require('os'); const { execSync } = require('child_process'); if (os.platform() === 'win32') { execSync('curl -o chromedriver-win64.zip https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/win64/chromedriver-win64.zip && tar -xf chromedriver-win64.zip && move chromedriver-win64\\\\chromedriver.exe .\\\\ && del chromedriver-win64.zip', { stdio: 'inherit' }); } else { execSync('curl -o chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip && unzip chromedriver-linux64.zip && mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver && chmod +x /usr/local/bin/chromedriver', { stdio: 'inherit' }); }\""
+    "postinstall": "pip install pymongo selenium python-dotenv python-dateutil && curl -o chromedriver-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip && unzip chromedriver-linux64.zip && mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver && chmod +x /usr/local/bin/chromedriver"
   },
   "keywords": [],
   "author": "",
