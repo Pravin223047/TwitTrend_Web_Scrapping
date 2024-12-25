@@ -39,7 +39,6 @@ try:
         driver.get("https://x.com/i/flow/login?lang=en")
         print("Login page opened. Please log in manually.")
 
-
     def wait_for_login():
         try:
             WebDriverWait(driver, 60).until(
@@ -50,7 +49,6 @@ try:
             print("Login timeout. Please try again.")
             driver.quit()
             exit()
-
 
     def fetch_trending():
         driver.get("https://x.com/explore/tabs/for_you")
@@ -79,7 +77,6 @@ try:
         except Exception as e:
             print("Error fetching trending topics:", e)
             return []
-
 
     def save_trending_to_mongo(trending_topics):
         if not trending_topics:
@@ -115,7 +112,6 @@ try:
         # Return the data as JSON so Node.js can process it
         return record
 
-
     # Script Execution
     open_login_page()
     wait_for_login()
@@ -129,4 +125,5 @@ except WebDriverException as e:
     print("WebDriver Error:", e)
 
 finally:
-    driver.quit()
+    if 'driver' in locals():
+        driver.quit()
