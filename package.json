@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development nodemon backend/index.js",
     "start": "cross-env NODE_ENV=production node backend/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-    "postinstall": "pip install pymongo selenium python-dotenv python-dateutil"
+    "postinstall": "pip install pymongo selenium python-dotenv python-dateutil && sudo apt-get update && sudo apt-get install -y chromium-chromedriver"
   },
   "keywords": [],
   "author": "",
