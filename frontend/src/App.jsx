@@ -31,8 +31,8 @@ function App() {
 
   const runScript = async () => {
     setLoading(true);
-    await axios.get("http://localhost:3001/api/run-script");
-    const res = await axios.get("http://localhost:3001/api/latest-trend");
+    await axios.get("https://twittrend-web-scrapping.onrender.com/api/run-script");
+    const res = await axios.get("https://twittrend-web-scrapping.onrender.com/api/latest-trend");
     setData(res.data);
     setLoading(false);
   };
