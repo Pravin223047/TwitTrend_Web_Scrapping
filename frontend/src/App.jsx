@@ -39,7 +39,7 @@ function App() {
 
   const fetchRandomFile = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/random-file");
+      const res = await axios.get("https://twittrend-web-scrapping.onrender.com/api/random-file");
       setData(res.data);
     } catch (error) {
       console.error("Error fetching random file:", error);
