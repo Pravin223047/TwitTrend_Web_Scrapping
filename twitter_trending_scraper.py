@@ -22,7 +22,7 @@ collection = db["trending_topics"]
 options = Options()
 options.add_argument("--start-maximized")
 service = Service(
-    "C:/Users/Pravin Kshirsagar/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"
+    "chromedriver.exe"
 )
 
 driver = webdriver.Chrome(service=service, options=options)
