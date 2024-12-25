@@ -31,7 +31,14 @@ options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
 
 # Set the chromedriver path based on Render (Linux environment)
-chromedriver_path = "/usr/bin/chromedriver"  # Adjust this if necessary
+  # Adjust this if necessary
+
+if platform.system() == "Windows":
+    # Specify the path to chromedriver.exe on Windows
+    chromedriver_path = "C:/Users/Pravin Kshirsagar/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"  # Update this to your chromedriver path
+else:
+    # For Linux, use the default path (chromedriver installed on the system)
+    chromedriver_path = "/usr/bin/chromedriver"
 
 # Initialize chromedriver service
 service = Service(chromedriver_path)
